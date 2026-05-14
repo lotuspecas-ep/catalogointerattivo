@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lotus Pecas — Software & Moduli</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+:root {
+  --black: #1D1D1F;
+  --dark: #2C2C2E;
+  --grey-900: #424245;
+  --grey-700: #6E6E73;
+  --grey-500: #86868B;
+  --grey-300: #D2D2D7;
+  --grey-200: #E5E5EA;
+  --grey-100: #F5F5F7;
+  --white: #FFFFFF;
+  --accent: #0071E3;
+  --accent-hover: #0077ED;
+  --gradient-1: #FF6B9D;
+  --gradient-2: #C44569;
+  --gradient-3: #6C5CE7;
+  --gradient-4: #0F6E56;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+  --bg-page: #F5F5F7;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-muted: #F5F5F7;
+  --bg-pill: #F5F5F7;
+  --text-primary: #1D1D1F;
+  --text-secondary: #424245;
+  --text-tertiary: #86868B;
+  --border: #D2D2D7;
+  --border-strong: #86868B;
+}
+[data-theme="dark"] {
+  --bg-page: #000000;
+  --bg-surface: #1C1C1E;
+  --bg-elevated: #2C2C2E;
+  --bg-muted: #1C1C1E;
+  --bg-pill: #2C2C2E;
+  --text-primary: #F5F5F7;
+  --text-secondary: #D2D2D7;
+  --text-tertiary: #86868B;
+  --border: #38383A;
+  --border-strong: #48484A;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+/* ============== HEADER ACCATTIVANTE ============== */
+.header {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F7 100%);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+[data-theme="dark"] .header {
+  background: linear-gradient(135deg, #1C1C1E 0%, #000000 100%);
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,107,157,0.08), transparent 70%);
+  pointer-events: none;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(108,92,231,0.06), transparent 70%);
+  pointer-events: none;
+}
+[data-theme="dark"] .header::before {
+  background: radial-gradient(circle, rgba(255,107,157,0.12), transparent 70%);
+}
+[data-theme="dark"] .header::after {
+  background: radial-gradient(circle, rgba(108,92,231,0.1), transparent 70%);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.brand-logo {
+  height: 56px;
+  width: auto;
+  flex-shrink: 0;
+  filter: var(--logo-filter, none);
+  transition: filter 0.3s ease;
+}
+[data-theme="dark"] .brand-logo {
+  background: var(--white);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  height: 50px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+.theme-toggle:hover {
+  background: var(--bg-muted);
+  transform: rotate(15deg);
+}
+.theme-toggle .ti { font-size: 18px; }
+[data-theme="light"] .theme-icon-dark { display: none; }
+[data-theme="dark"] .theme-icon-light { display: none; }
+
+.lang-switcher {
+  display: inline-flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  gap: 0;
+}
+.lang-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font);
+  border-radius: 6px;
+  transition: all 0.15s;
+  letter-spacing: 0.5px;
+}
+.lang-btn:hover { color: var(--text-primary); }
+.lang-btn.active {
+  background: var(--text-primary);
+  color: var(--bg-surface);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 12px;
+  padding: 4px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+
+h1 {
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.gradient-text {
+  background: linear-gradient(135deg, #6C5CE7 0%, #FF6B9D 50%, #0F6E56 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+  max-width: 720px;
+  line-height: 1.5;
+}
+
+.stats-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stat-number {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* ============== TABS ============== */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-family: var(--font);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.tab-btn:hover { color: var(--text-secondary); }
+.tab-btn.active {
+  border-bottom-color: var(--text-primary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ============== SEARCH ============== */
+.search-wrap { position: relative; margin-bottom: 24px; }
+.search-wrap .ti-search {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  color: var(--bg-surface);
+  border: none;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s;
+}
+.search-clear:hover { background: var(--text-secondary); }
+.search-clear .ti { font-size: 14px; }
+.search-clear.visible { display: flex; }
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 44px 12px 42px;
+  font-size: 15px;
+  font-family: var(--font);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: border 0.15s, box-shadow 0.15s;
+}
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+}
+
+/* ============== VIEWS ============== */
+.view { display: none; }
+.view.active { display: block; }
+
+.section-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+.section-desc-large {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.grid { display: grid; gap: 12px; }
+.grid-cards { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-mods { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+/* ============== CARD ============== */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: border 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.icon-box .ti { font-size: 24px; }
+.card-title { font-weight: 600; font-size: 16px; margin: 0; color: var(--text-primary); }
+.card-os {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0;
+  font-weight: 600;
+}
+.card-tagline { font-size: 14px; font-weight: 500; margin: 0 0 6px; color: var(--text-primary); }
+.card-desc { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+/* ============== CAT HEADERS ============== */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.cat-header .ti { font-size: 20px; color: var(--text-primary); }
+.cat-title { font-size: 16px; font-weight: 600; margin: 0; color: var(--text-primary); }
+.cat-count {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+/* OS-specific group headers */
+.os-group {
+  margin-bottom: 32px;
+}
+.os-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.os-header .ti { font-size: 20px; }
+.os-header-title { font-size: 15px; font-weight: 600; color: var(--text-primary); margin: 0; }
+.os-header-count {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+/* ============== MODULES ============== */
+.mod-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: border 0.15s, transform 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mod-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+.mod-card .ti { font-size: 18px; color: var(--text-tertiary); margin-top: 2px; flex-shrink: 0; }
+.mod-card-content { flex: 1; min-width: 0; }
+.mod-name { font-size: 13px; font-weight: 600; margin: 0 0 3px; color: var(--text-primary); }
+.mod-desc { font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.4; }
+.mod-meta {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin: 4px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+}
+
+.mod-list { display: flex; flex-direction: column; gap: 6px; }
+.mod-list-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border 0.15s;
+}
+.mod-list-item:hover { border-color: var(--border-strong); }
+.mod-list-item > .ti { font-size: 20px; color: var(--text-tertiary); flex-shrink: 0; }
+.mod-list-content { flex: 1; min-width: 0; }
+.mod-list-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mod-list-name { font-size: 14px; font-weight: 600; margin: 0; color: var(--text-primary); }
+.mod-list-cat {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+  font-weight: 600;
+}
+.mod-list-desc { font-size: 12px; color: var(--text-secondary); margin: 3px 0 0; line-height: 1.4; }
+
+.sw-badges {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.sw-badge {
+  font-size: 10px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.sw-badge:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ============== DETAIL PANEL ============== */
+.detail-panel {
+  display: none;
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.detail-head-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.detail-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.detail-subtitle { font-size: 13px; color: var(--text-tertiary); margin: 2px 0 0; }
+.close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--text-tertiary);
+  border-radius: var(--radius-md);
+  transition: background 0.15s;
+}
+.close-btn:hover { background: var(--bg-muted); color: var(--text-primary); }
+.close-btn .ti { font-size: 20px; }
+
+.detail-desc { font-size: 15px; margin: 0 0 20px; line-height: 1.6; color: var(--text-secondary); }
+.detail-section { margin-bottom: 24px; }
+.detail-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.variants {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+.variant {
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.variant .ti { font-size: 20px; }
+.variant-name { font-size: 13px; font-weight: 600; margin: 6px 0 2px; color: var(--text-primary); }
+.variant-desc { font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.4; }
+
+.feature-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.feat-pill {
+  font-size: 12px;
+  padding: 5px 10px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+}
+
+/* Novax feature groups */
+.feat-group {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.feat-group-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.feat-group-head .ti { font-size: 18px; color: var(--text-primary); }
+.feat-group-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.feat-group-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.feat-group-pill {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+}
+
+.mod-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 6px;
+}
+.mod-link {
+  cursor: pointer;
+  font-size: 12px;
+  padding: 8px 12px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: border 0.15s, background 0.15s;
+  color: var(--text-primary);
+}
+.mod-link:hover {
+  border-color: var(--accent);
+  background: var(--bg-surface);
+}
+.mod-link .ti { font-size: 14px; color: var(--text-tertiary); }
+
+.compat-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.compat-pill {
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font);
+  transition: transform 0.15s, opacity 0.15s;
+}
+.compat-pill:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  h1 { font-size: 32px; }
+  .container { padding: 0 16px 48px; }
+  .grid-cards { grid-template-columns: 1fr; }
+  .header-inner { padding: 20px 16px; }
+  .brand-logo { height: 44px; }
+  [data-theme="dark"] .brand-logo { height: 40px; }
+  .stats-row { gap: 14px; }
+  .stat-number { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACuAvkDASIAAhEBAxEB/8QAHAABAAICAwEAAAAAAAAAAAAAAAYHAQgCBAUD/8QAURAAAQMDAgMEBQcHBwoFBQAAAQACAwQFEQYHEiExE0FRYQgUInGBFTJSc5GhsSM3QnKywdEWFyY0NTZ0JDNDVWNkgpKi4SdEYnWTRVPC0vH/xAAaAQEAAgMBAAAAAAAAAAAAAAAABAUBAgMG/8QALREAAgICAQQBAwMFAAMAAAAAAAECAwQRBRITITFBFCIyIzNRBhUkNIFCYXH/2gAMAwEAAhEDEQA/ANy0REAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREJQBFjOF515vlss9Mai51cVMwDPtu5n3BZUW/CNXNRW2ellYBVZXTenSNK4tp/W6sjvjjwPvIXnt3wsh62ytHuwuyxrH8ESWfRF6ci3soq3t+8OlaktEvrlPnqXx5A+wlSyz6t0/dgPUbnTyk8g3iwfsPNaSqnH2jeGZTP1JHuIuDZWOblrgQuQctNElNP0ZRAcosGQiIgCIiAIiLGwERFkBERAEREAREQBERAEREAREQBERAEREAREQBERAEREARMplAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQAnC4Pe0NLieSzJ83kqT3817U2uVun7TM6Od7eKokYebR3DyXWmp2S0iNlZEaIdTJruPr62aVtEszKiKesIxHC12ST3Km7DpDWe5Va+93SsfTUsjssL/o5/Rb3Lw9oNMz601kJK0ySUtKQ+UvJOfJbXUtNFSxMhgjayOMYaGjAAXeUo4/heyBV1Zv3v8AEray7KaZo2MFYZ6t46kyEA/AL2W7U6OA5W0fFxU4APVcguP1Fn8kqOBQvcSt7js/pecH1YVFK/uLJCR9hUZue0NdSAyWe4GTHPhf7Lj8QrtIWOELKybPlms+Nol6WiiaWq15pQtjmjmkpxz5+23HhlTTTO5NDWlsFzYKSbpxD5ufNT2aCOVpY9jXNIwQRyUQ1Ht9abkHSUzRSzHvYOWVu7IT8SRH+mvoe6ntEwpKmCoiEkMjXsPMFpyvsCCqUgqdR6FrxTT8UtKDyB5tcPEFWfpjUdBe6Vr4JQ2bHtxE82rnOpryvRKx82M30T8SPdRYByFkFcSbsIi+dQ8sjLwM4GU9iT0tnPiCyCqUum9D6K4TUotTndk8t4uIc8HCtXSl0N5sNLcjGY+3YHcJ7l1sx5QSkyJRm1XycY+0esiDoi5EwIiIAiIgCIThAg2MplfKd/Zxuf3AZVP3veURXF9Dbre5zmy9nxvPI88LpCqU/wAURb8uuhpTfsuUIurbZ3VFDDO/kZGBxHvC7IK0a09EiMk1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" alt="Lotus Pecas Italia" class="brand-logo">
+      <div class="header-controls">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" type="button">
+          <i class="ti ti-sun theme-icon-light"></i>
+          <i class="ti ti-moon theme-icon-dark"></i>
+        </button>
+        <div class="lang-switcher" role="group" aria-label="Language">
+          <button class="lang-btn active" data-lang="it" type="button">IT</button>
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+          <button class="lang-btn" data-lang="de" type="button">DE</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="eyebrow" data-i18n="eyebrow">Catalogo Soluzioni</p>
+    <h1 data-i18n="h1_html">Software & Moduli<br><span class="gradient-text">tutto in un posto.</span></h1>
+    <p class="subtitle" data-i18n="subtitle">Esplora i software Core, le funzionalità trasversali e tutti i moduli disponibili nell'ecosistema Lotus Pecas.</p>
+
+    <div class="stats-row">
+      <div class="stat"><span class="stat-number">5</span><span class="stat-label" data-i18n="stat_core">Software Core</span></div>
+      <div class="stat"><span class="stat-number">2</span><span class="stat-label" data-i18n="stat_online">Online</span></div>
+      <div class="stat"><span class="stat-number">54</span><span class="stat-label" data-i18n="stat_modules">Moduli</span></div>
+      <div class="stat"><span class="stat-number">4</span><span class="stat-label" data-i18n="stat_os">Sistemi Operativi</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="software"><i class="ti ti-apps"></i>&nbsp;<span data-i18n="tab_software">Per Software</span></button>
+    <button class="tab-btn" data-tab="os"><i class="ti ti-device-desktop"></i>&nbsp;<span data-i18n="tab_os">Per Sistema Operativo</span></button>
+    <button class="tab-btn" data-tab="functions"><i class="ti ti-category"></i>&nbsp;<span data-i18n="tab_functions">Per Funzione</span></button>
+    <button class="tab-btn" data-tab="modules"><i class="ti ti-list"></i>&nbsp;<span data-i18n="tab_modules">Tutti i Moduli</span></button>
+  </div>
+
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input type="text" id="search" data-i18n-placeholder="search_placeholder" placeholder="Cerca software, modulo o funzionalità...">
+    <button class="search-clear" id="search-clear" aria-label="Clear" type="button"><i class="ti ti-x"></i></button>
+  </div>
+
+  <div id="view-software" class="view active"></div>
+  <div id="view-os" class="view"></div>
+  <div id="view-functions" class="view"></div>
+  <div id="view-modules" class="view"></div>
+
+  <div id="detail-panel" class="detail-panel"></div>
+
+  <div class="footer" data-i18n="footer">Lotus Pecas — Catalogo completo · 5 software Core + 2 soluzioni online + 54 moduli</div>
+
+</div>
+
+<script>
+// ============== I18N ==============
+const I18N = {
+  it: {
+    eyebrow: 'Catalogo Soluzioni',
+    h1_html: 'Software & Moduli<br><span class="gradient-text">tutto in un posto.</span>',
+    subtitle: 'Esplora i software Core, le funzionalità trasversali e tutti i moduli disponibili nell\'ecosistema Lotus Pecas.',
+    stat_core: 'Software Core', stat_online: 'Online', stat_modules: 'Moduli', stat_os: 'Sistemi Operativi',
+    tab_software: 'Per Software',
+    tab_os: 'Per Sistema Operativo',
+    tab_functions: 'Per Funzione',
+    tab_modules: 'Tutti i Moduli',
+    search_placeholder: 'Cerca software, modulo o funzionalità...',
+    footer: 'Lotus Pecas — Catalogo completo · 5 software Core + 2 soluzioni online + 54 moduli',
+    label_core: 'Software Core',
+    desc_core: 'Le piattaforme principali dell\'ecosistema Lotus Pecas.',
+    label_online: 'Soluzioni Online',
+    desc_online: 'Prodotti cloud accessibili da browser.',
+    desc_functions: 'Esplora le funzionalità raggruppate per macro-categoria.',
+    desc_os: 'Esplora i software raggruppati per sistema operativo.',
+    desc_modules_count: (n) => `Lista alfabetica di tutti i ${n} moduli disponibili.`,
+    label_module: 'modulo', label_modules: 'moduli',
+    label_software_count: 'software',
+    label_variants: 'Le tre varianti',
+    label_core_features: 'Funzionalità incluse nel Core',
+    label_features: 'Funzionalità',
+    label_compatible_modules: 'Moduli compatibili',
+    label_compatible_with: 'Compatibile con',
+    label_feature_groups: 'Funzionalità per gruppo',
+    close: 'Chiudi'
+  },
+  en: {
+    eyebrow: 'Solutions Catalog',
+    h1_html: 'Software & Modules<br><span class="gradient-text">all in one place.</span>',
+    subtitle: 'Explore the Core software, cross-functional features and all available modules in the Lotus Pecas ecosystem.',
+    stat_core: 'Core Software', stat_online: 'Online', stat_modules: 'Modules', stat_os: 'Operating Systems',
+    tab_software: 'By Software',
+    tab_os: 'By Operating System',
+    tab_functions: 'By Function',
+    tab_modules: 'All Modules',
+    search_placeholder: 'Search software, modules or features...',
+    footer: 'Lotus Pecas — Complete catalog · 5 Core software + 2 online solutions + 54 modules',
+    label_core: 'Core Software',
+    desc_core: 'The main platforms of the Lotus Pecas ecosystem.',
+    label_online: 'Online Solutions',
+    desc_online: 'Cloud products accessible via browser.',
+    desc_functions: 'Explore features grouped by macro-category.',
+    desc_os: 'Explore software grouped by operating system.',
+    desc_modules_count: (n) => `Alphabetical list of all ${n} available modules.`,
+    label_module: 'module', label_modules: 'modules',
+    label_software_count: 'software',
+    label_variants: 'The three variants',
+    label_core_features: 'Features included in the Core',
+    label_features: 'Features',
+    label_compatible_modules: 'Compatible modules',
+    label_compatible_with: 'Compatible with',
+    label_feature_groups: 'Features by group',
+    close: 'Close'
+  },
+  de: {
+    eyebrow: 'Lösungskatalog',
+    h1_html: 'Software & Module<br><span class="gradient-text">alles an einem Ort.</span>',
+    subtitle: 'Entdecken Sie die Core-Software, übergreifende Funktionen und alle verfügbaren Module im Lotus Pecas-Ökosystem.',
+    stat_core: 'Core-Software', stat_online: 'Online', stat_modules: 'Module', stat_os: 'Betriebssysteme',
+    tab_software: 'Nach Software',
+    tab_os: 'Nach Betriebssystem',
+    tab_functions: 'Nach Funktion',
+    tab_modules: 'Alle Module',
+    search_placeholder: 'Software, Module oder Funktionen suchen...',
+    footer: 'Lotus Pecas — Vollständiger Katalog · 5 Core-Software + 2 Online-Lösungen + 54 Module',
+    label_core: 'Core-Software',
+    desc_core: 'Die wichtigsten Plattformen des Lotus Pecas-Ökosystems.',
+    label_online: 'Online-Lösungen',
+    desc_online: 'Cloud-Produkte, zugänglich über den Browser.',
+    desc_functions: 'Entdecken Sie die Funktionen gruppiert nach Makrokategorie.',
+    desc_os: 'Entdecken Sie die Software gruppiert nach Betriebssystem.',
+    desc_modules_count: (n) => `Alphabetische Liste aller ${n} verfügbaren Module.`,
+    label_module: 'Modul', label_modules: 'Module',
+    label_software_count: 'Software',
+    label_variants: 'Die drei Varianten',
+    label_core_features: 'Im Core enthaltene Funktionen',
+    label_features: 'Funktionen',
+    label_compatible_modules: 'Kompatible Module',
+    label_compatible_with: 'Kompatibel mit',
+    label_feature_groups: 'Funktionen nach Gruppe',
+    close: 'Schließen'
+  }
+};
+
+// ============== FEATURE GROUPS NOVAX/ANDRO ==============
+const NOVAX_FEATURE_GROUPS = [
+  {
+    key: 'booking',
+    title: { it: 'Booking & Planning', en: 'Booking & Planning', de: 'Buchung & Planung' },
+    icon: 'ti-calendar-event',
+    items: {
+      it: ['Agenda multi-operatore', 'Viste giorno / settimana / mese', 'Prenotazione rapida', 'Appuntamenti multi-trattamento', 'Assegnazione cabine', 'Note appuntamento', 'Ricerca appuntamenti', 'Gestione no-show', 'Blocco slot orari', 'Obiettivi per appuntamento', 'Gestione giorni di chiusura', 'Prenotazioni ricorrenti'],
+      en: ['Multi-operator agenda', 'Day / week / month views', 'Quick booking', 'Multi-treatment appointments', 'Cabin assignment', 'Appointment notes', 'Appointment search', 'No-show management', 'Time slot blocking', 'Goals per appointment', 'Closing days management', 'Recurring bookings'],
+      de: ['Multi-Mitarbeiter-Agenda', 'Tages-/Wochen-/Monatsansicht', 'Schnellbuchung', 'Multi-Behandlungstermine', 'Kabinenzuweisung', 'Terminnotizen', 'Terminsuche', 'No-Show-Verwaltung', 'Zeitfenster-Blockierung', 'Ziele pro Termin', 'Verwaltung Schließtage', 'Wiederkehrende Buchungen']
+    }
+  },
+  {
+    key: 'clients',
+    title: { it: 'Clients & CRM', en: 'Clients & CRM', de: 'Kunden & CRM' },
+    icon: 'ti-users',
+    items: {
+      it: ['Anagrafica cliente', 'Creazione cliente rapida', 'Profilo cliente online', 'Privacy e consensi', 'Scheda morfologica/tecnica', 'Foto prima/dopo', 'Categoria cliente', 'Fonte di acquisizione', 'Storico trattamenti', 'Storico acquisti prodotti', 'Totale speso', 'Filtri cliente avanzati', 'Export dati cliente'],
+      en: ['Customer master data', 'Quick customer creation', 'Online customer profile', 'Privacy & consents', 'Morphological / technical sheet', 'Before/after photos', 'Customer category', 'Acquisition source', 'Treatment history', 'Product purchase history', 'Total spent', 'Advanced customer filters', 'Export customer data'],
+      de: ['Kundenstammdaten', 'Schnelle Kundenanlage', 'Online-Kundenprofil', 'Datenschutz & Einwilligungen', 'Morphologische / technische Karte', 'Vorher-/Nachher-Fotos', 'Kundenkategorie', 'Akquisitionsquelle', 'Behandlungshistorie', 'Produktkaufhistorie', 'Gesamtausgaben', 'Erweiterte Kundenfilter', 'Kundendaten-Export']
+    }
+  },
+  {
+    key: 'treatments',
+    title: { it: 'Treatments, Services & Packages', en: 'Treatments, Services & Packages', de: 'Behandlungen, Dienstleistungen & Pakete' },
+    icon: 'ti-clipboard-heart',
+    items: {
+      it: ['Catalogo trattamenti (+ durata)', 'Flag trattamenti online', 'Operatori associati', 'Gestione promozioni trattamenti', 'Pacchetti e abbonamenti', 'Stato abbonamento', 'Consumo pacchetti', 'Acconti e saldi sui pacchetti', 'Note abbonamento'],
+      en: ['Treatment catalog (+ duration)', 'Online treatments flag', 'Associated operators', 'Treatment promotions management', 'Packages & subscriptions', 'Subscription status', 'Package consumption', 'Deposits & balances on packages', 'Subscription notes'],
+      de: ['Behandlungskatalog (+ Dauer)', 'Online-Behandlungen-Flag', 'Zugeordnete Mitarbeiter', 'Verwaltung Behandlungsangebote', 'Pakete & Abonnements', 'Abonnementstatus', 'Paketverbrauch', 'Anzahlungen & Salden auf Paketen', 'Abonnementnotizen']
+    }
+  },
+  {
+    key: 'staff',
+    title: { it: 'Staff, Resources & Schedules', en: 'Staff, Resources & Schedules', de: 'Personal, Ressourcen & Zeitpläne' },
+    icon: 'ti-users-group',
+    items: {
+      it: ['Anagrafica personale', 'Anagrafica cabine/risorse', 'Colori operatore e cabine', 'Orari di apertura attività', 'Turni e presenze', 'Statistiche produttività personale'],
+      en: ['Staff master data', 'Cabins/resources master data', 'Operator & cabin colors', 'Business opening hours', 'Shifts & attendance', 'Staff productivity statistics'],
+      de: ['Personalstammdaten', 'Kabinen-/Ressourcen-Stammdaten', 'Mitarbeiter- & Kabinenfarben', 'Geschäftsöffnungszeiten', 'Schichten & Anwesenheit', 'Personal-Produktivitätsstatistik']
+    }
+  },
+  {
+    key: 'marketing',
+    title: { it: 'Marketing, Communication & AI', en: 'Marketing, Communication & AI', de: 'Marketing, Kommunikation & KI' },
+    icon: 'ti-sparkles',
+    items: {
+      it: [
+        'Email marketing', 'SMS marketing', 'WhatsApp integration', 'WhatsApp AI Agent', 'Marketing automation', 'Template messaggi', 'Liste clienti', 'Promozioni trattamenti', 'Recensioni e feedback', 'Pubblicazione recensioni',
+        'Prenotazioni via WhatsApp AI 24/7', 'Gestione agenda (vista titolare)', 'Promemoria automatici cliente', 'Notifiche real-time al titolare', 'Modifica/cancellazione in live chat', 'Scoring affidabilità cliente (base)',
+        'Prenotazione da link Instagram/Google', 'Widget booking embedded (siti web + Shopify)',
+        'Business Intelligence in chat (linguaggio naturale)', 'Report automatici settimanali/mensili', 'Alert slot vuoti e anomalie agenda', 'Scoring avanzato + promemoria dinamici',
+        'Marketing automation clienti inattivi', 'Upsell post-servizio automatico', 'Segmentazione per servizio/comportamento',
+        'Inventory Management Shopify (riconciliazione, lettura documenti)', 'Prenotazione vocale AI via chiamata telefonica'
+      ],
+      en: [
+        'Email marketing', 'SMS marketing', 'WhatsApp integration', 'WhatsApp AI Agent', 'Marketing automation', 'Message templates', 'Customer lists', 'Treatment promotions', 'Reviews & feedback', 'Review publishing',
+        '24/7 WhatsApp AI bookings', 'Agenda management (owner view)', 'Automatic customer reminders', 'Real-time owner notifications', 'Live chat edit/cancel', 'Customer reliability scoring (base)',
+        'Booking from Instagram/Google links', 'Embedded booking widget (websites + Shopify)',
+        'In-chat Business Intelligence (natural language)', 'Automatic weekly/monthly reports', 'Empty slot & agenda anomaly alerts', 'Advanced scoring + dynamic reminders',
+        'Inactive customer marketing automation', 'Automatic post-service upselling', 'Service/behavior-based segmentation',
+        'Shopify Inventory Management (reconciliation, document reading)', 'AI voice booking via phone call'
+      ],
+      de: [
+        'E-Mail-Marketing', 'SMS-Marketing', 'WhatsApp-Integration', 'WhatsApp KI-Agent', 'Marketing-Automatisierung', 'Nachrichtenvorlagen', 'Kundenlisten', 'Behandlungsangebote', 'Bewertungen & Feedback', 'Bewertungsveröffentlichung',
+        '24/7 WhatsApp KI-Buchungen', 'Agendaverwaltung (Inhaberansicht)', 'Automatische Kundenerinnerungen', 'Echtzeit-Inhaberbenachrichtigungen', 'Live-Chat-Bearbeitung/Stornierung', 'Kundenzuverlässigkeits-Score (Basis)',
+        'Buchung über Instagram-/Google-Links', 'Eingebettetes Buchungs-Widget (Websites + Shopify)',
+        'In-Chat-Business-Intelligence (natürliche Sprache)', 'Automatische wöchentliche/monatliche Berichte', 'Warnungen für leere Slots & Agenda-Anomalien', 'Erweitertes Scoring + dynamische Erinnerungen',
+        'Marketing-Automatisierung für inaktive Kunden', 'Automatisches Upselling nach dem Service', 'Service-/Verhaltensbasierte Segmentierung',
+        'Shopify Inventory Management (Abgleich, Dokumentenlesen)', 'KI-Sprachbuchung per Telefonanruf'
+      ]
+    }
+  }
+];
+
+// ============== DATA ==============
+const NOVAX_BASE = {
+  variants: {
+    it: [
+      { name: 'Beauty', desc: 'Saloni, SPA, barbieri, centri estetici', icon: 'ti-sparkles', color: '#D4537E' },
+      { name: 'Gastro', desc: 'Ristoranti, caffè, bar', icon: 'ti-tools-kitchen-2', color: '#BA7517' },
+      { name: 'Retail', desc: 'Negozi, chioschi, punti vendita', icon: 'ti-building-store', color: '#3B6D11' }
+    ],
+    en: [
+      { name: 'Beauty', desc: 'Salons, SPAs, barbershops, beauty centers', icon: 'ti-sparkles', color: '#D4537E' },
+      { name: 'Gastro', desc: 'Restaurants, cafés, bars', icon: 'ti-tools-kitchen-2', color: '#BA7517' },
+      { name: 'Retail', desc: 'Shops, kiosks, points of sale', icon: 'ti-building-store', color: '#3B6D11' }
+    ],
+    de: [
+      { name: 'Beauty', desc: 'Salons, SPAs, Friseure, Schönheitssalons', icon: 'ti-sparkles', color: '#D4537E' },
+      { name: 'Gastro', desc: 'Restaurants, Cafés, Bars', icon: 'ti-tools-kitchen-2', color: '#BA7517' },
+      { name: 'Retail', desc: 'Geschäfte, Kioske, Verkaufsstellen', icon: 'ti-building-store', color: '#3B6D11' }
+    ]
+  },
+  coreFeatures: {
+    it: ['Modalità offline', 'Fidelizzazione clienti', 'Campagne promozionali', 'Registro di cassa', 'Gestione filiali', 'Valutazione operatore', 'Statistiche', 'Controllo stock', 'Gift Card', 'Conformità normativa', 'Menù allergeni (Beauty/Gastro)'],
+    en: ['Offline mode', 'Customer loyalty', 'Promotional campaigns', 'Cash register', 'Branch management', 'Operator evaluation', 'Statistics', 'Stock control', 'Gift Cards', 'Regulatory compliance', 'Allergen menu (Beauty/Gastro)'],
+    de: ['Offline-Modus', 'Kundenbindung', 'Werbekampagnen', 'Kassenbuch', 'Filialverwaltung', 'Mitarbeiterbewertung', 'Statistiken', 'Lagerkontrolle', 'Geschenkkarten', 'Regulatorische Konformität', 'Allergenmenü (Beauty/Gastro)']
+  },
+  featureGroups: NOVAX_FEATURE_GROUPS
+};
+
+const DATA = {
+  software: {
+    'alacarte': {
+      name: 'Lp.Alacarte',
+      tagline: { it: 'Ristoranti', en: 'Restaurants', de: 'Restaurants' },
+      description: {
+        it: 'Piattaforma completa per la ristorazione: ordini al tavolo, mappa tavoli, delivery, cassa, magazzino, gift card. Oltre 20 anni di esperienza nel settore Ho.Re.Ca.',
+        en: 'Complete platform for restaurants: table ordering, table map, delivery, POS, inventory, gift cards. Over 20 years of experience in Ho.Re.Ca.',
+        de: 'Komplette Plattform für die Gastronomie: Tischbestellung, Tischplan, Lieferung, Kasse, Lager, Geschenkkarten. Über 20 Jahre Erfahrung im Ho.Re.Ca.-Bereich.'
+      },
+      os: 'Windows', osKey: 'windows', color: '#1D1D1F', bg: '#F5F5F7', icon: 'ti-tools-kitchen-2',
+      coreFeatures: {
+        it: ['Deliveroo, Uber Eat, Glovo, Just Eat', 'Fidelizzazione clienti', 'Campagne promozionali marketing', 'App mobile', 'Registro di cassa', 'Gestione centralizzata punti vendita', 'Analisi comparativa dati', 'Integrazione bilancia elettronica', 'Report e statistiche', 'Gestione magazzino', 'Gift Card', 'Adempimenti fiscali integrati'],
+        en: ['Deliveroo, Uber Eat, Glovo, Just Eat', 'Customer loyalty', 'Marketing promotional campaigns', 'Mobile app', 'Cash register', 'Centralized POS management', 'Comparative data analysis', 'Electronic scale integration', 'Reports and statistics', 'Inventory management', 'Gift Cards', 'Integrated tax compliance'],
+        de: ['Deliveroo, Uber Eat, Glovo, Just Eat', 'Kundenbindung', 'Werbekampagnen Marketing', 'Mobile App', 'Kassenbuch', 'Zentralisierte Filialverwaltung', 'Vergleichende Datenanalyse', 'Integration elektronische Waage', 'Berichte und Statistiken', 'Lagerverwaltung', 'Geschenkkarten', 'Integrierte Steuerkonformität']
+      }
+    },
+    'onset': {
+      name: 'Lp.Onset',
+      tagline: { it: 'Caffetteria, Gelateria, Panetteria, Pasticceria, Fast-food', en: 'Café, Ice cream shop, Bakery, Pastry, Fast-food', de: 'Café, Eisdiele, Bäckerei, Konditorei, Fast-Food' },
+      description: {
+        it: 'Trasforma clienti occasionali in clienti fedeli. Gestione ordini in loco, delivery, prenotazioni, allergeni. Analisi dettagliate per far crescere il business.',
+        en: 'Turn occasional customers into loyal ones. On-site order management, delivery, reservations, allergens. Detailed analytics to grow your business.',
+        de: 'Verwandeln Sie Gelegenheitskunden in Stammkunden. Bestellverwaltung vor Ort, Lieferung, Reservierungen, Allergene. Detaillierte Analysen für Ihr Wachstum.'
+      },
+      os: 'Windows', osKey: 'windows', color: '#1F4E79', bg: '#E6F1FB', icon: 'ti-coffee',
+      coreFeatures: {
+        it: ['Food Delivery (Deliveroo, Uber Eat, Glovo, Just Eat)', 'Fidelizzazione clienti', 'Campagne promozionali', 'App mobile', 'Registro di cassa', 'Gestione filiali', 'Menù allergeni', 'Gestione prenotazioni', 'Collegamento bilance', 'Analisi degli operatori', 'Report e statistiche', 'Gestione magazzino', 'Ricevuta digitale', 'Gift Card', 'Conformità fiscale'],
+        en: ['Food Delivery (Deliveroo, Uber Eat, Glovo, Just Eat)', 'Customer loyalty', 'Promotional campaigns', 'Mobile app', 'Cash register', 'Branch management', 'Allergen menu', 'Reservation management', 'Scale connection', 'Operator analytics', 'Reports and statistics', 'Inventory management', 'Digital receipt', 'Gift Cards', 'Tax compliance'],
+        de: ['Food Delivery (Deliveroo, Uber Eat, Glovo, Just Eat)', 'Kundenbindung', 'Werbekampagnen', 'Mobile App', 'Kassenbuch', 'Filialverwaltung', 'Allergenmenü', 'Reservierungsverwaltung', 'Waagenanbindung', 'Mitarbeiteranalyse', 'Berichte und Statistiken', 'Lagerverwaltung', 'Digitaler Beleg', 'Geschenkkarten', 'Steuerkonformität']
+      }
+    },
+    'retail': {
+      name: 'Lp.Retail',
+      tagline: { it: 'Commercio al dettaglio', en: 'Retail commerce', de: 'Einzelhandel' },
+      description: {
+        it: 'Supermercati, macellerie, chioschi, abbigliamento, calzature. Soluzione smart e multicanale per ottimizzare vendite e gestione operativa.',
+        en: 'Supermarkets, butcher shops, kiosks, clothing, footwear. Smart multichannel solution to optimize sales and operations.',
+        de: 'Supermärkte, Metzgereien, Kioske, Bekleidung, Schuhe. Intelligente Multichannel-Lösung zur Optimierung von Verkauf und Betrieb.'
+      },
+      os: 'Windows', osKey: 'windows', color: '#3B6D11', bg: '#EAF3DE', icon: 'ti-building-store',
+      coreFeatures: {
+        it: ['Modalità offline', 'Fidelizzazione cliente', 'Campagne promozionali', 'App mobile', 'Gestione filiali', 'Registrazione movimenti di cassa', 'Valutazione performance operatore', 'Integrazione bilance elettroniche', 'Statistiche dettagliate', 'Controllo magazzino', 'Voucher digitali', 'Adempimento obblighi normativi'],
+        en: ['Offline mode', 'Customer loyalty', 'Promotional campaigns', 'Mobile app', 'Branch management', 'Cash movement recording', 'Operator performance evaluation', 'Electronic scales integration', 'Detailed statistics', 'Inventory control', 'Digital vouchers', 'Regulatory compliance'],
+        de: ['Offline-Modus', 'Kundenbindung', 'Werbekampagnen', 'Mobile App', 'Filialverwaltung', 'Erfassung Kassenbewegungen', 'Mitarbeiter-Performance-Bewertung', 'Integration elektronischer Waagen', 'Detaillierte Statistiken', 'Lagerkontrolle', 'Digitale Gutscheine', 'Einhaltung gesetzlicher Vorschriften']
+      }
+    },
+    'loof': {
+      name: 'Lp.Loof',
+      tagline: { it: 'Gestionale magazzino e logistica', en: 'Inventory and logistics management', de: 'Lager- und Logistikverwaltung' },
+      description: {
+        it: 'Inventory completo, gestione fornitori, ordini di acquisto, e-commerce flag. Pensato per piccoli shop fino a grandi magazzini. Disponibile anche in versione online (LoofNex).',
+        en: 'Full inventory, supplier management, purchase orders, e-commerce flag. Designed for small shops up to large warehouses. Also available online (LoofNex).',
+        de: 'Komplette Inventarisierung, Lieferantenverwaltung, Bestellungen, E-Commerce-Flag. Konzipiert für kleine Shops bis zu großen Lagern. Auch online verfügbar (LoofNex).'
+      },
+      os: 'Windows', osKey: 'windows', color: '#534AB7', bg: '#EEEDFE', icon: 'ti-package',
+      coreFeatures: {
+        it: ['Anagrafica prodotti', 'Quantità e livelli di stock', 'Movimenti in/out', 'Avvisi scorte basse', 'Anagrafica fornitori', 'Gestione acquisti', 'Flag prodotti e-commerce', 'Prodotti in evidenza', 'Export e import dati'],
+        en: ['Product master data', 'Stock quantities & levels', 'Stock in/out movements', 'Low stock alerts', 'Supplier master data', 'Purchase management', 'E-commerce product flag', 'Featured products', 'Data export and import'],
+        de: ['Produktstammdaten', 'Lagerbestände und -mengen', 'Lagerbewegungen ein/aus', 'Niedrigbestandsalarme', 'Lieferantenstammdaten', 'Einkaufsverwaltung', 'E-Commerce-Produktmarkierung', 'Hervorgehobene Produkte', 'Datenexport und -import']
+      }
+    },
+    'novax': {
+      name: 'Lp.Novax',
+      tagline: { it: 'Soluzione mobile per iOS', en: 'Mobile solution for iOS', de: 'Mobile Lösung für iOS' },
+      description: {
+        it: 'Tre varianti dedicate per ogni settore (Beauty, Gastro, Retail). Soluzione nativa iOS con booking, CRM, marketing AI, integrazione WhatsApp.',
+        en: 'Three dedicated variants for each industry (Beauty, Gastro, Retail). Native iOS solution with booking, CRM, AI marketing, WhatsApp integration.',
+        de: 'Drei dedizierte Varianten für jede Branche (Beauty, Gastro, Retail). Native iOS-Lösung mit Buchung, CRM, KI-Marketing, WhatsApp-Integration.'
+      },
+      os: 'iOS', osKey: 'ios', color: '#D4537E', bg: '#FBEAF0', icon: 'ti-brand-apple',
+      variants: NOVAX_BASE.variants,
+      coreFeatures: NOVAX_BASE.coreFeatures,
+      featureGroups: NOVAX_BASE.featureGroups
+    },
+    'andro': {
+      name: 'Lp.Andro',
+      tagline: { it: 'Soluzione mobile per Android', en: 'Mobile solution for Android', de: 'Mobile Lösung für Android' },
+      description: {
+        it: 'Replica Android di Lp.Novax con identiche funzionalità: tre varianti per settore (Beauty, Gastro, Retail), booking, CRM, marketing AI, WhatsApp.',
+        en: 'Android counterpart of Lp.Novax with identical features: three variants by sector (Beauty, Gastro, Retail), booking, CRM, AI marketing, WhatsApp.',
+        de: 'Android-Pendant zu Lp.Novax mit identischen Funktionen: drei Branchenvarianten (Beauty, Gastro, Retail), Buchung, CRM, KI-Marketing, WhatsApp.'
+      },
+      os: 'Android', osKey: 'android', color: '#3DDC84', bg: '#E8F8EE', icon: 'ti-brand-android',
+      variants: NOVAX_BASE.variants,
+      coreFeatures: NOVAX_BASE.coreFeatures,
+      featureGroups: NOVAX_BASE.featureGroups
+    }
+  },
+  online: {
+    'qrmenu': {
+      name: 'Lp.QR Menu',
+      tagline: { it: 'Menù digitale via QR-Code', en: 'Digital menu via QR-Code', de: 'Digitales Menü per QR-Code' },
+      description: {
+        it: 'Soluzione online: menu digitale di nuova generazione, multilingue, accessibile da smartphone senza app. Ordini e pagamenti contactless integrati.',
+        en: 'Online solution: next-gen digital menu, multilingual, accessible from smartphone without apps. Integrated contactless ordering and payments.',
+        de: 'Online-Lösung: digitales Menü der nächsten Generation, mehrsprachig, ohne App vom Smartphone aus zugänglich. Integrierte kontaktlose Bestellungen und Zahlungen.'
+      },
+      os: 'Online', osKey: 'online', color: '#0F6E56', bg: '#E1F5EE', icon: 'ti-qrcode',
+      coreFeatures: {
+        it: ['Modifica menu in tempo reale', 'Aggiunta al carrello', 'Compatibile Android e iOS', 'Contenuti visivi e animati', 'Informazioni allergeni', 'Multilingue (12 lingue)', 'Pagamenti integrati (Stripe, Nexi)', 'Design ottimizzato smartphone'],
+        en: ['Real-time menu editing', 'Add to cart', 'Android and iOS compatible', 'Visual and animated content', 'Allergen information', 'Multilingual (12 languages)', 'Integrated payments (Stripe, Nexi)', 'Smartphone-optimized design'],
+        de: ['Echtzeit-Menübearbeitung', 'In den Warenkorb', 'Android- und iOS-kompatibel', 'Visuelle und animierte Inhalte', 'Allergeninformationen', 'Mehrsprachig (12 Sprachen)', 'Integrierte Zahlungen (Stripe, Nexi)', 'Für Smartphones optimiertes Design']
+      }
+    },
+    'loofnex': {
+      name: 'Lp.LoofNex',
+      tagline: { it: 'Versione online di Loof', en: 'Online version of Loof', de: 'Online-Version von Loof' },
+      description: {
+        it: 'Variante cloud del gestionale Loof, accessibile da browser per gestione inventario, fornitori e ordini di acquisto, ovunque e da qualsiasi dispositivo.',
+        en: 'Cloud variant of Loof, browser-accessible for inventory, suppliers and purchase orders management, anywhere from any device.',
+        de: 'Cloud-Variante von Loof, browserbasiert für Inventar-, Lieferanten- und Bestellverwaltung, überall und von jedem Gerät aus.'
+      },
+      os: 'Online', osKey: 'online', color: '#534AB7', bg: '#EEEDFE', icon: 'ti-cloud',
+      coreFeatures: {
+        it: ['Tutte le funzionalità di Loof', 'Accessibilità cloud', 'Multi-dispositivo', 'Backup automatico', 'Sincronizzazione real-time'],
+        en: ['All Loof features', 'Cloud accessibility', 'Multi-device', 'Automatic backup', 'Real-time synchronization'],
+        de: ['Alle Loof-Funktionen', 'Cloud-Zugänglichkeit', 'Multi-Device', 'Automatisches Backup', 'Echtzeit-Synchronisation']
+      }
+    }
+  },
+  modules: {
+    'Lp.Pay': { category: 'payments', icon: 'ti-credit-card', desc: { it: 'Integrazione POS per carte di debito e credito, trasferimento automatico dell\'importo dalla cassa al terminale, rapidità e sicurezza nelle transazioni', en: 'POS integration for debit and credit cards, automatic amount transfer from till to terminal, fast and secure transactions', de: 'POS-Integration für Debit- und Kreditkarten, automatische Übertragung des Betrags von der Kasse zum Terminal, schnelle und sichere Transaktionen' } },
+    'Lp.4Pay': { category: 'payments', icon: 'ti-credit-card-pay', desc: { it: 'Soluzione di pagamento avanzata multi-canale', en: 'Advanced multi-channel payment solution', de: 'Erweiterte Multi-Channel-Zahlungslösung' } },
+    'Lp.Cashdro': { category: 'payments', icon: 'ti-cash', desc: { it: 'Gestione automatizzata e sicura degli incassi in contanti, prevenzione furti e igiene', en: 'Automated and secure cash management, theft prevention and hygiene', de: 'Automatisierte und sichere Bargeldverwaltung, Diebstahlschutz und Hygiene' } },
+    'Lp.Cashlogy': { category: 'payments', icon: 'ti-coin', desc: { it: 'Cassa automatica per gestione contanti, ciclo del denaro dal punto vendita al deposito bancario', en: 'Automatic cash register for cash handling, money cycle from POS to bank deposit', de: 'Automatische Kasse für Bargeldverwaltung, Geldkreislauf vom POS zur Bankeinlage' } },
+    'Lp.Glory': { category: 'payments', icon: 'ti-coin-euro', desc: { it: 'Sistema avanzato di gestione contanti Glory', en: 'Advanced Glory cash management system', de: 'Erweitertes Glory-Bargeldverwaltungssystem' } },
+    'Lp.Customer': { category: 'crm', icon: 'ti-user-circle', desc: { it: 'Scheda cliente completa e personalizzabile, promemoria automatici per compleanni ed eventi, CRM integrato', en: 'Complete customizable customer profile, automatic reminders for birthdays and events, integrated CRM', de: 'Vollständig anpassbares Kundenprofil, automatische Erinnerungen für Geburtstage und Ereignisse, integriertes CRM' } },
+    'Lp.Members': { category: 'crm', icon: 'ti-users-group', desc: { it: 'Gestione tessere socio e programmi loyalty', en: 'Member card and loyalty program management', de: 'Verwaltung von Mitgliedskarten und Treueprogrammen' } },
+    'Lp.Voucher': { category: 'crm', icon: 'ti-gift', desc: { it: 'Sistema di voucher e gift card digitali', en: 'Digital voucher and gift card system', de: 'Digitales Gutschein- und Geschenkkartensystem' } },
+    'Lp.SMS': { category: 'crm', icon: 'ti-message', desc: { it: 'Invio SMS automatici per promozioni e promemoria appuntamenti (specifico per Beauty)', en: 'Automatic SMS for promotions and appointment reminders (Beauty-specific)', de: 'Automatische SMS für Werbeaktionen und Terminerinnerungen (spezifisch für Beauty)' } },
+    'Lp.Depot': { category: 'inventory', icon: 'ti-building-warehouse', desc: { it: 'Gestione completa magazzino: prodotti, fornitori, scorte e movimenti', en: 'Complete inventory management: products, suppliers, stock and movements', de: 'Komplette Lagerverwaltung: Produkte, Lieferanten, Bestände und Bewegungen' } },
+    'Lp.Count': { category: 'inventory', icon: 'ti-clipboard-list', desc: { it: 'Inventario fisico e conta scorte', en: 'Physical inventory and stock count', de: 'Inventur und Bestandszählung' } },
+    'Lp.Label': { category: 'inventory', icon: 'ti-tag', desc: { it: 'Stampa etichette prodotti', en: 'Product label printing', de: 'Produktetikettendruck' } },
+    'Lp.OfficeStore': { category: 'inventory', icon: 'ti-archive', desc: { it: 'Gestione back-office magazzino', en: 'Warehouse back-office management', de: 'Lager-Backoffice-Verwaltung' } },
+    'Lp.Reports': { category: 'reporting', icon: 'ti-chart-bar', desc: { it: 'Report e statistiche di vendita in tempo reale', en: 'Real-time sales reports and statistics', de: 'Echtzeit-Verkaufsberichte und Statistiken' } },
+    'Lp.Detailed Report': { category: 'reporting', icon: 'ti-chart-line', desc: { it: 'Report dettagliati e analisi avanzate', en: 'Detailed reports and advanced analytics', de: 'Detaillierte Berichte und erweiterte Analysen' } },
+    'Lp.Boss': { category: 'reporting', icon: 'ti-device-mobile', desc: { it: 'App in cloud per monitoraggio impresa ovunque tramite smartphone: entrate, uscite, fatturato, performance dipendenti, prenotazioni tavoli', en: 'Cloud app to monitor business anywhere via smartphone: income, expenses, revenue, employee performance, table reservations', de: 'Cloud-App zur Überwachung des Geschäfts überall per Smartphone: Einnahmen, Ausgaben, Umsatz, Mitarbeiterleistung, Tischreservierungen' } },
+    'Lp.Order': { category: 'orders', icon: 'ti-clipboard-text', desc: { it: 'Gestione visiva ordini su monitor in cucina, comunicazione precisa servizio-cucina, meno sprechi e più efficienza', en: 'Visual order management on kitchen monitor, precise service-kitchen communication, less waste and more efficiency', de: 'Visuelle Bestellverwaltung auf Küchenmonitor, präzise Service-Küchen-Kommunikation, weniger Verschwendung und mehr Effizienz' } },
+    'Lp.Table': { category: 'orders', icon: 'ti-layout-grid', desc: { it: 'Mappa tavoli, gestione sala e creazione tavoli (specifico per ristorazione)', en: 'Table map, dining room management and table creation (restaurant-specific)', de: 'Tischplan, Saalverwaltung und Tischerstellung (gastronomie-spezifisch)' } },
+    'Lp.Kiosk': { category: 'orders', icon: 'ti-device-tablet', desc: { it: 'Chiosco self-service per ordinazione autonoma del cliente, accelera il check-out', en: 'Self-service kiosk for autonomous customer ordering, speeds up checkout', de: 'Self-Service-Kiosk für autonome Kundenbestellungen, beschleunigt den Check-out' } },
+    'Lp.Mobile': { category: 'orders', icon: 'ti-device-mobile-message', desc: { it: 'Presa ordini al tavolo da smartphone, sincronizzazione con il gestionale', en: 'Table-side order taking from smartphone, sync with management software', de: 'Tisch-Bestellaufnahme per Smartphone, Synchronisation mit der Verwaltungssoftware' } },
+    'Lp.NumWatch': { category: 'orders', icon: 'ti-numbers', desc: { it: 'Display numeri ordine per gestione attese in fast-food e self-service', en: 'Order number display for managing waits in fast-food and self-service', de: 'Bestellnummernanzeige zur Wartezeitverwaltung in Fast-Food und Self-Service' } },
+    'Lp.Datev': { category: 'fiscal', icon: 'ti-file-invoice', desc: { it: 'Integrazione con software Datev per contabilità (mercato DE/AT)', en: 'Integration with Datev accounting software (DE/AT market)', de: 'Integration mit Datev-Buchhaltungssoftware (DE/AT-Markt)' } },
+    'Lp.Ledger': { category: 'fiscal', icon: 'ti-book', desc: { it: 'Libro cassa digitale, registrazione incassi e movimenti giornalieri', en: 'Digital cash book, daily takings and movements recording', de: 'Digitales Kassenbuch, Aufzeichnung von Einnahmen und täglichen Bewegungen' } },
+    'TSE': { category: 'fiscal', icon: 'ti-shield-check', desc: { it: 'Modulo conformità fiscale Germania (TSE Kassensichv)', en: 'Germany tax compliance module (TSE Kassensichv)', de: 'Steuerkonformitätsmodul Deutschland (TSE KassenSichV)' } },
+    'Fiskal Trust': { category: 'fiscal', icon: 'ti-shield-check', desc: { it: 'Conformità fiscale Austria', en: 'Austria tax compliance', de: 'Steuerkonformität Österreich' } },
+    'mdEpsonRT': { category: 'fiscal', icon: 'ti-printer', desc: { it: 'Integrazione con stampante fiscale Epson RT', en: 'Integration with Epson RT fiscal printer', de: 'Integration mit Epson RT-Fiskaldrucker' } },
+    'NFS25': { category: 'fiscal', icon: 'ti-certificate', desc: { it: 'Modulo fiscale aggiornato alle normative 2025', en: 'Tax module updated to 2025 regulations', de: 'Steuermodul aktualisiert auf Vorschriften 2025' } },
+    'Lp.Scale': { category: 'hardware', icon: 'ti-scale', desc: { it: 'Integrazione certificata UE con bilance di marca Selecta', en: 'EU-certified integration with Selecta brand scales', de: 'EU-zertifizierte Integration mit Selecta-Waagen' } },
+    'Lp.Dibal-Qr': { category: 'hardware', icon: 'ti-scale-outline', desc: { it: 'Integrazione con bilance Dibal con QR code', en: 'Integration with Dibal scales with QR code', de: 'Integration mit Dibal-Waagen mit QR-Code' } },
+    'Price Watch': { category: 'hardware', icon: 'ti-tag', desc: { it: 'I clienti consultano in autonomia prezzi e dettagli prodotto', en: 'Customers autonomously check prices and product details', de: 'Kunden prüfen selbständig Preise und Produktdetails' } },
+    'Lp.Digital Package': { category: 'hardware', icon: 'ti-package', desc: { it: 'Pacchetto digitalizzazione integrato', en: 'Integrated digitization package', de: 'Integriertes Digitalisierungspaket' } },
+    'Lp.TelFind': { category: 'operations', icon: 'ti-phone', desc: { it: 'Ricerca clienti per numero telefonico (utile per delivery)', en: 'Customer search by phone number (useful for delivery)', de: 'Kundensuche per Telefonnummer (nützlich für Lieferung)' } },
+    'Lp.Multiply Prices': { category: 'operations', icon: 'ti-arrows-shuffle', desc: { it: 'Gestione listini multipli e prezzi variabili', en: 'Multiple price lists and variable prices management', de: 'Verwaltung mehrerer Preislisten und variabler Preise' } },
+    'Lp.Employe Tracking': { category: 'operations', icon: 'ti-user-check', desc: { it: 'Rilevazione presenze e tracking ore lavorative dipendenti', en: 'Attendance tracking and employee work hours', de: 'Anwesenheitserfassung und Arbeitszeiterfassung der Mitarbeiter' } },
+    'Lp.CloudSer': { category: 'operations', icon: 'ti-cloud-data-connection', desc: { it: 'Servizi cloud e sincronizzazione dati', en: 'Cloud services and data synchronization', de: 'Cloud-Dienste und Datensynchronisation' } },
+    'RestaJet': { category: 'delivery', icon: 'ti-truck-delivery', desc: { it: 'Integrazione con piattaforma RestaJet per delivery', en: 'Integration with RestaJet delivery platform', de: 'Integration mit RestaJet-Lieferplattform' } },
+    'Lp.Hubrise': { category: 'delivery', icon: 'ti-share', desc: { it: 'Hub centralizzato per integrazioni delivery (Uber Eat, Deliveroo, Just Eat, Glovo)', en: 'Centralized hub for delivery integrations (Uber Eat, Deliveroo, Just Eat, Glovo)', de: 'Zentraler Hub für Liefer-Integrationen (Uber Eat, Deliveroo, Just Eat, Glovo)' } },
+    'Liferando': { category: 'delivery', icon: 'ti-bike', desc: { it: 'Integrazione con piattaforma Lieferando (mercato DE)', en: 'Integration with Lieferando platform (DE market)', de: 'Integration mit Lieferando-Plattform (DE-Markt)' } },
+    'MergePort Integration': { category: 'delivery', icon: 'ti-plug-connected', desc: { it: 'Integrazione MergePort per delivery multi-piattaforma', en: 'MergePort integration for multi-platform delivery', de: 'MergePort-Integration für Multi-Plattform-Lieferung' } },
+    'Base Modul': { category: 'system', icon: 'ti-cube', desc: { it: 'Modulo base del sistema', en: 'System base module', de: 'System-Basismodul' } },
+    'Update': { category: 'system', icon: 'ti-refresh', desc: { it: 'Aggiornamenti software periodici', en: 'Periodic software updates', de: 'Regelmäßige Software-Updates' } },
+    'Service Pack Basic': { category: 'system', icon: 'ti-tool', desc: { it: 'Pacchetto assistenza Basic', en: 'Basic support package', de: 'Basic-Supportpaket' } },
+    'Service Pack Standard': { category: 'system', icon: 'ti-tool', desc: { it: 'Pacchetto assistenza Standard', en: 'Standard support package', de: 'Standard-Supportpaket' } },
+    'Service Pack Premium': { category: 'system', icon: 'ti-tool', desc: { it: 'Pacchetto assistenza Premium', en: 'Premium support package', de: 'Premium-Supportpaket' } },
+    'Service Pack VIP': { category: 'system', icon: 'ti-tool', desc: { it: 'Pacchetto assistenza VIP', en: 'VIP support package', de: 'VIP-Supportpaket' } },
+    'Loof Base': { category: 'loof', icon: 'ti-cube', desc: { it: 'Modulo base di Loof', en: 'Loof base module', de: 'Loof-Basismodul' } },
+    'Loof Entry': { category: 'loof', icon: 'ti-database-import', desc: { it: 'Inserimento dati Loof', en: 'Loof data entry', de: 'Loof-Dateneingabe' } },
+    'Loof Branch Management': { category: 'loof', icon: 'ti-affiliate', desc: { it: 'Gestione filiali nel sistema Loof', en: 'Branch management in Loof system', de: 'Filialverwaltung im Loof-System' } },
+    'Loof Warehouse': { category: 'loof', icon: 'ti-building-warehouse', desc: { it: 'Gestione magazzino avanzata Loof', en: 'Advanced Loof warehouse management', de: 'Erweiterte Loof-Lagerverwaltung' } },
+    'Loof Bid': { category: 'loof', icon: 'ti-file-dollar', desc: { it: 'Gestione offerte e preventivi Loof', en: 'Loof bids and quotes management', de: 'Loof-Angebots- und Kostenvoranschlagsverwaltung' } },
+    'Loof Order': { category: 'loof', icon: 'ti-shopping-cart', desc: { it: 'Gestione ordini Loof', en: 'Loof order management', de: 'Loof-Bestellverwaltung' } },
+    'Loof Garbage': { category: 'loof', icon: 'ti-trash', desc: { it: 'Gestione smaltimento Loof', en: 'Loof waste management', de: 'Loof-Entsorgungsverwaltung' } },
+    'Loof Waybill': { category: 'loof', icon: 'ti-file-text', desc: { it: 'Bolle di consegna Loof', en: 'Loof delivery notes', de: 'Loof-Lieferscheine' } },
+    'Loof Tour': { category: 'loof', icon: 'ti-route', desc: { it: 'Pianificazione giri di consegna Loof', en: 'Loof delivery tour planning', de: 'Loof-Lieferrouten-Planung' } }
+  },
+  matrix: {
+    'Lp.Alacarte': ['Lp.Depot','Lp.TelFind','Lp.Scale','Lp.Pay','Lp.Customer','Lp.Count','Lp.Members','Lp.Reports','Lp.Order','Lp.Mobile','Lp.Cashdro','Lp.Datev','Lp.Kiosk','Lp.Glory','Lp.Ledger','Lp.Voucher','Lp.NumWatch','Lp.Boss','Lp.Cashlogy','Lp.Detailed Report','RestaJet','Lp.4Pay','NFS25','Lp.Label','MergePort Integration','Lp.Hubrise','mdEpsonRT','Lp.Digital Package','Lp.Multiply Prices','TSE','Liferando','Fiskal Trust','Lp.Employe Tracking','Base Modul','Service Pack Basic','Service Pack Standard','Service Pack Premium','Service Pack VIP','Update','Lp.CloudSer'],
+    'Lp.Onset': ['Lp.Depot','Lp.Table','Lp.TelFind','Lp.OfficeStore','Lp.Scale','Lp.Pay','Lp.Customer','Lp.Count','Lp.Members','Lp.Reports','Lp.Order','Lp.Mobile','Lp.Cashdro','Lp.Datev','Lp.Kiosk','Lp.Glory','Lp.Ledger','Lp.Voucher','Lp.NumWatch','Lp.Boss','Lp.Cashlogy','Lp.Digital Package','Price Watch','Lp.Multiply Prices','TSE','Liferando','Fiskal Trust','Lp.Employe Tracking','Lp.Detailed Report','RestaJet','Lp.4Pay','Lp.Dibal-Qr','NFS25','Lp.Label','MergePort Integration','Lp.Hubrise','mdEpsonRT','Base Modul','Service Pack Basic','Service Pack Standard','Service Pack Premium','Service Pack VIP','Update','Lp.CloudSer'],
+    'Lp.Retail': ['Lp.Depot','Lp.OfficeStore','Lp.Scale','Lp.Pay','Lp.Customer','Lp.Count','Lp.Members','Lp.Reports','Lp.Cashdro','Lp.Datev','Lp.Glory','Lp.Ledger','Lp.Voucher','Lp.Boss','Lp.Cashlogy','Lp.Digital Package','Price Watch','TSE','Fiskal Trust','Lp.Employe Tracking','Lp.Detailed Report','Lp.4Pay','Lp.Dibal-Qr','NFS25','Lp.Label','mdEpsonRT','Base Modul','Service Pack Basic','Service Pack Standard','Service Pack Premium','Service Pack VIP','Update','Lp.CloudSer'],
+    'Lp.Novax': ['Lp.Cashdro','Lp.Datev','Lp.Glory','Lp.Ledger','Lp.Voucher','Lp.Boss','Lp.Cashlogy','Lp.Depot','Lp.Pay','Lp.Customer','Lp.Count','Lp.Members','Lp.Reports','Lp.Digital Package','TSE','Fiskal Trust','Lp.Employe Tracking','Lp.Detailed Report','Lp.4Pay','Lp.SMS','NFS25','Lp.Label','mdEpsonRT','Base Modul','Service Pack Basic','Service Pack Standard','Service Pack Premium','Service Pack VIP','Update','Lp.CloudSer'],
+    'Lp.Andro': ['Lp.Cashdro','Lp.Datev','Lp.Glory','Lp.Ledger','Lp.Voucher','Lp.Boss','Lp.Cashlogy','Lp.Depot','Lp.Pay','Lp.Customer','Lp.Count','Lp.Members','Lp.Reports','Lp.Digital Package','TSE','Fiskal Trust','Lp.Employe Tracking','Lp.Detailed Report','Lp.4Pay','Lp.SMS','NFS25','Lp.Label','mdEpsonRT','Base Modul','Service Pack Basic','Service Pack Standard','Service Pack Premium','Service Pack VIP','Update','Lp.CloudSer'],
+    'Lp.Loof': ['Lp.CloudSer','Loof Base','Loof Entry','Lp.Label','Loof Branch Management','Loof Warehouse','Loof Bid','Loof Order','Loof Garbage','Loof Waybill','Loof Tour']
+  }
+};
+
+const CATEGORIES = {
+  payments: { it: 'Pagamenti', en: 'Payments', de: 'Zahlungen', icon: 'ti-credit-card' },
+  crm: { it: 'CRM & Fidelizzazione', en: 'CRM & Loyalty', de: 'CRM & Treue', icon: 'ti-users' },
+  inventory: { it: 'Magazzino & Inventario', en: 'Warehouse & Inventory', de: 'Lager & Inventar', icon: 'ti-building-warehouse' },
+  reporting: { it: 'Reporting & Analytics', en: 'Reporting & Analytics', de: 'Reporting & Analyse', icon: 'ti-chart-bar' },
+  orders: { it: 'Ordini & Tavoli', en: 'Orders & Tables', de: 'Bestellungen & Tische', icon: 'ti-clipboard-text' },
+  fiscal: { it: 'Fiscale & Compliance', en: 'Fiscal & Compliance', de: 'Steuer & Compliance', icon: 'ti-shield-check' },
+  hardware: { it: 'Hardware & Periferiche', en: 'Hardware & Peripherals', de: 'Hardware & Peripherie', icon: 'ti-printer' },
+  operations: { it: 'Operatività', en: 'Operations', de: 'Betrieb', icon: 'ti-settings' },
+  delivery: { it: 'Integrazioni Delivery', en: 'Delivery Integrations', de: 'Liefer-Integrationen', icon: 'ti-truck-delivery' },
+  loof: { it: 'Loof - Specifici', en: 'Loof - Specific', de: 'Loof - Spezifisch', icon: 'ti-package' },
+  system: { it: 'Sistema & Manutenzione', en: 'System & Maintenance', de: 'System & Wartung', icon: 'ti-tool' }
+};
+const CAT_ORDER = ['payments','crm','inventory','reporting','orders','fiscal','hardware','operations','delivery','loof','system'];
+
+const SW_COLORS = {
+  'Lp.Alacarte': { bg: '#F5F5F7', color: '#1D1D1F' },
+  'Lp.Onset': { bg: '#E6F1FB', color: '#1F4E79' },
+  'Lp.Retail': { bg: '#EAF3DE', color: '#3B6D11' },
+  'Lp.Novax': { bg: '#FBEAF0', color: '#D4537E' },
+  'Lp.Andro': { bg: '#E8F8EE', color: '#256B3F' },
+  'Lp.Loof': { bg: '#EEEDFE', color: '#534AB7' }
+};
+
+const OS_GROUPS = {
+  windows: { name: { it: 'Windows', en: 'Windows', de: 'Windows' }, icon: 'ti-brand-windows', color: '#0078D4' },
+  ios: { name: { it: 'iOS', en: 'iOS', de: 'iOS' }, icon: 'ti-brand-apple', color: '#1D1D1F' },
+  android: { name: { it: 'Android', en: 'Android', de: 'Android' }, icon: 'ti-brand-android', color: '#3DDC84' },
+  online: { name: { it: 'Online · Cloud', en: 'Online · Cloud', de: 'Online · Cloud' }, icon: 'ti-cloud', color: '#0F6E56' }
+};
+
+// ============== STATE ==============
+let currentLang = localStorage.getItem('lp_lang') || 'it';
+const supportedLangs = ['it', 'en', 'de'];
+if (!supportedLangs.includes(currentLang)) currentLang = 'it';
+
+let currentTheme = localStorage.getItem('lp_theme');
+if (!currentTheme) {
+  currentTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function t(key) { return I18N[currentLang][key] || I18N.it[key] || key; }
+function tt(value) {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') return value[currentLang] || value.it || '';
+  return '';
+}
+
+function moduleUsedIn(modName) {
+  const usedIn = [];
+  for (const [sw, mods] of Object.entries(DATA.matrix)) {
+    if (mods.includes(modName)) usedIn.push(sw);
+  }
+  return usedIn;
+}
+
+function softwareKeyByName(name) {
+  for (const [key, sw] of Object.entries(DATA.software)) {
+    if (sw.name === name) return { type: 'software', key };
+  }
+  for (const [key, sw] of Object.entries(DATA.online)) {
+    if (sw.name === name) return { type: 'online', key };
+  }
+  return null;
+}
+
+function matches(text, filter) {
+  return !filter || text.toLowerCase().includes(filter.toLowerCase());
+}
+
+// ============== RENDER VIEWS ==============
+function renderSoftwareView(filter = '') {
+  const c = document.getElementById('view-software');
+  let html = `<p class="section-label">${t('label_core')}</p><p class="section-desc">${t('desc_core')}</p>`;
+  html += '<div class="grid grid-cards">';
+  for (const [key, sw] of Object.entries(DATA.software)) {
+    const hay = sw.name + ' ' + tt(sw.tagline) + ' ' + tt(sw.description);
+    if (filter && !matches(hay, filter)) continue;
+    html += `<div class="card" data-key="${key}" data-type="software">
+      <div class="card-head">
+        <div class="icon-box" style="background:${sw.bg}"><i class="ti ${sw.icon}" style="color:${sw.color}"></i></div>
+        <div style="flex:1;min-width:0;">
+          <p class="card-title">${sw.name}</p>
+          <p class="card-os">${sw.os}</p>
+        </div>
+      </div>
+      <p class="card-tagline">${tt(sw.tagline)}</p>
+      <p class="card-desc">${tt(sw.description)}</p>
+    </div>`;
+  }
+  html += '</div>';
+
+  html += `<p class="section-label" style="margin-top:32px;">${t('label_online')}</p><p class="section-desc">${t('desc_online')}</p>`;
+  html += '<div class="grid grid-cards">';
+  for (const [key, sw] of Object.entries(DATA.online)) {
+    const hay = sw.name + ' ' + tt(sw.tagline) + ' ' + tt(sw.description);
+    if (filter && !matches(hay, filter)) continue;
+    html += `<div class="card" data-key="${key}" data-type="online">
+      <div class="card-head">
+        <div class="icon-box" style="background:${sw.bg}"><i class="ti ${sw.icon}" style="color:${sw.color}"></i></div>
+        <div style="flex:1;min-width:0;">
+          <p class="card-title">${sw.name}</p>
+          <p class="card-os">${sw.os}</p>
+        </div>
+      </div>
+      <p class="card-tagline">${tt(sw.tagline)}</p>
+      <p class="card-desc">${tt(sw.description)}</p>
+    </div>`;
+  }
+  html += '</div>';
+  c.innerHTML = html;
+}
+
+function renderOsView(filter = '') {
+  const c = document.getElementById('view-os');
+  let html = `<p class="section-desc-large">${t('desc_os')}</p>`;
+  const osOrder = ['windows','ios','android','online'];
+
+  for (const osKey of osOrder) {
+    const os = OS_GROUPS[osKey];
+    const items = [];
+
+    for (const [key, sw] of Object.entries(DATA.software)) {
+      if (sw.osKey === osKey) {
+        const hay = sw.name + ' ' + tt(sw.tagline) + ' ' + tt(sw.description);
+        if (!filter || matches(hay, filter)) items.push({ key, type: 'software', data: sw });
+      }
+    }
+    for (const [key, sw] of Object.entries(DATA.online)) {
+      if (sw.osKey === osKey) {
+        const hay = sw.name + ' ' + tt(sw.tagline) + ' ' + tt(sw.description);
+        if (!filter || matches(hay, filter)) items.push({ key, type: 'online', data: sw });
+      }
+    }
+
+    if (items.length === 0 && filter) continue;
+
+    html += `<div class="os-group">
+      <div class="os-header">
+        <i class="ti ${os.icon}" style="color:${os.color}"></i>
+        <p class="os-header-title">${tt(os.name)}</p>
+        <span class="os-header-count">${items.length} ${items.length === 1 ? 'software' : 'software'}</span>
+      </div>
+      <div class="grid grid-cards">`;
+    for (const it of items) {
+      const sw = it.data;
+      html += `<div class="card" data-key="${it.key}" data-type="${it.type}">
+        <div class="card-head">
+          <div class="icon-box" style="background:${sw.bg}"><i class="ti ${sw.icon}" style="color:${sw.color}"></i></div>
+          <div style="flex:1;min-width:0;">
+            <p class="card-title">${sw.name}</p>
+            <p class="card-os">${sw.os}</p>
+          </div>
+        </div>
+        <p class="card-tagline">${tt(sw.tagline)}</p>
+        <p class="card-desc">${tt(sw.description)}</p>
+      </div>`;
+    }
+    html += '</div></div>';
+  }
+  c.innerHTML = html;
+}
+
+function renderFunctionsView(filter = '') {
+  const c = document.getElementById('view-functions');
+  const categories = {};
+  for (const [mod, info] of Object.entries(DATA.modules)) {
+    if (!categories[info.category]) categories[info.category] = [];
+    categories[info.category].push({ name: mod, ...info });
+  }
+  let html = `<p class="section-desc">${t('desc_functions')}</p>`;
+  for (const catKey of CAT_ORDER) {
+    if (!categories[catKey]) continue;
+    const catName = CATEGORIES[catKey][currentLang];
+    const filtered = categories[catKey].filter(m => !filter || matches(m.name + ' ' + tt(m.desc) + ' ' + catName, filter));
+    if (filtered.length === 0) continue;
+    const lbl = filtered.length === 1 ? t('label_module') : t('label_modules');
+    html += `<div class="cat-header">
+      <i class="ti ${CATEGORIES[catKey].icon}"></i>
+      <p class="cat-title">${catName}</p>
+      <span class="cat-count">${filtered.length} ${lbl}</span>
+    </div>
+    <div class="grid grid-mods">`;
+    for (const m of filtered) {
+      const usedIn = moduleUsedIn(m.name);
+      const desc = tt(m.desc);
+      html += `<div class="mod-card" data-key="${m.name}" data-type="module">
+        <i class="ti ${m.icon}"></i>
+        <div class="mod-card-content">
+          <p class="mod-name">${m.name}</p>
+          <p class="mod-desc">${desc.substring(0, 80)}${desc.length > 80 ? '...' : ''}</p>
+          <p class="mod-meta">${usedIn.length} ${t('label_software_count')}</p>
+        </div>
+      </div>`;
+    }
+    html += '</div>';
+  }
+  c.innerHTML = html;
+}
+
+function renderModulesView(filter = '') {
+  const c = document.getElementById('view-modules');
+  const all = Object.entries(DATA.modules).map(([k,v]) => ({ name: k, ...v })).sort((a,b) => a.name.localeCompare(b.name));
+  const filtered = all.filter(m => !filter || matches(m.name + ' ' + tt(m.desc) + ' ' + CATEGORIES[m.category][currentLang], filter));
+  let html = `<p class="section-desc">${t('desc_modules_count')(all.length)}</p><div class="mod-list">`;
+  for (const m of filtered) {
+    const usedIn = moduleUsedIn(m.name);
+    html += `<div class="mod-list-item" data-key="${m.name}" data-type="module">
+      <i class="ti ${m.icon}"></i>
+      <div class="mod-list-content">
+        <div class="mod-list-head">
+          <p class="mod-list-name">${m.name}</p>
+          <p class="mod-list-cat">${CATEGORIES[m.category][currentLang]}</p>
+        </div>
+        <p class="mod-list-desc">${tt(m.desc)}</p>
+      </div>
+      <div class="sw-badges">`;
+    for (const sw of usedIn) {
+      const col = SW_COLORS[sw] || { bg: '#F1EFE8', color: '#2C2C2A' };
+      html += `<button type="button" class="sw-badge nav-software" data-sw-name="${sw}" style="background:${col.bg};color:${col.color}">${sw}</button>`;
+    }
+    html += '</div></div>';
+  }
+  html += '</div>';
+  c.innerHTML = html;
+}
+
+// ============== DETAIL PANEL ==============
+function showDetail(type, key) {
+  const panel = document.getElementById('detail-panel');
+  let html = '';
+
+  if (type === 'software') {
+    const sw = DATA.software[key];
+    const allModules = DATA.matrix[sw.name] || [];
+
+    html = `<div class="detail-head">
+      <div class="detail-head-left">
+        <div class="icon-box" style="background:${sw.bg};width:52px;height:52px;"><i class="ti ${sw.icon}" style="color:${sw.color};font-size:28px;"></i></div>
+        <div>
+          <p class="detail-title">${sw.name}</p>
+          <p class="detail-subtitle">${tt(sw.tagline)} · ${sw.os}</p>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeDetail()" aria-label="${t('close')}"><i class="ti ti-x"></i></button>
+    </div>
+    <p class="detail-desc">${tt(sw.description)}</p>`;
+
+    if (sw.variants) {
+      const variants = sw.variants[currentLang] || sw.variants.it;
+      html += `<div class="detail-section"><p class="detail-section-title">${t('label_variants')}</p><div class="variants">`;
+      for (const v of variants) {
+        html += `<div class="variant">
+          <i class="ti ${v.icon}" style="color:${v.color}"></i>
+          <p class="variant-name">${v.name}</p>
+          <p class="variant-desc">${v.desc}</p>
+        </div>`;
+      }
+      html += '</div></div>';
+    }
+
+    const feats = sw.coreFeatures[currentLang] || sw.coreFeatures.it;
+    html += `<div class="detail-section"><p class="detail-section-title">${t('label_core_features')}</p><div class="feature-pills">`;
+    for (const feat of feats) html += `<span class="feat-pill">${feat}</span>`;
+    html += '</div></div>';
+
+    if (sw.featureGroups) {
+      html += `<div class="detail-section"><p class="detail-section-title">${t('label_feature_groups')}</p>`;
+      for (const fg of sw.featureGroups) {
+        const items = fg.items[currentLang] || fg.items.it;
+        html += `<div class="feat-group">
+          <div class="feat-group-head">
+            <i class="ti ${fg.icon}"></i>
+            <p class="feat-group-title">${tt(fg.title)}</p>
+          </div>
+          <div class="feat-group-items">`;
+        for (const item of items) html += `<span class="feat-group-pill">${item}</span>`;
+        html += '</div></div>';
+      }
+      html += '</div>';
+    }
+
+    if (allModules.length > 0) {
+      html += `<div class="detail-section"><p class="detail-section-title">${t('label_compatible_modules')} (${allModules.length})</p><div class="mod-links">`;
+      for (const mod of allModules) {
+        const info = DATA.modules[mod];
+        if (!info) continue;
+        html += `<div class="mod-link" data-key="${mod}" data-type="module">
+          <i class="ti ${info.icon}"></i><span>${mod}</span>
+        </div>`;
+      }
+      html += '</div></div>';
+    }
+  } else if (type === 'online') {
+    const sw = DATA.online[key];
+    html = `<div class="detail-head">
+      <div class="detail-head-left">
+        <div class="icon-box" style="background:${sw.bg};width:52px;height:52px;"><i class="ti ${sw.icon}" style="color:${sw.color};font-size:28px;"></i></div>
+        <div>
+          <p class="detail-title">${sw.name}</p>
+          <p class="detail-subtitle">${tt(sw.tagline)} · ${sw.os}</p>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeDetail()" aria-label="${t('close')}"><i class="ti ti-x"></i></button>
+    </div>
+    <p class="detail-desc">${tt(sw.description)}</p>
+    <div class="detail-section"><p class="detail-section-title">${t('label_features')}</p><div class="feature-pills">`;
+    const feats = sw.coreFeatures[currentLang] || sw.coreFeatures.it;
+    for (const feat of feats) html += `<span class="feat-pill">${feat}</span>`;
+    html += '</div></div>';
+  } else if (type === 'module') {
+    const m = DATA.modules[key];
+    const usedIn = moduleUsedIn(key);
+    html = `<div class="detail-head">
+      <div class="detail-head-left">
+        <div class="icon-box" style="background:var(--bg-muted);width:52px;height:52px;border:1px solid var(--border);"><i class="ti ${m.icon}" style="color:var(--text-primary);font-size:26px;"></i></div>
+        <div>
+          <p class="detail-title">${key}</p>
+          <p class="detail-subtitle" style="text-transform:uppercase;letter-spacing:0.6px;">${CATEGORIES[m.category][currentLang]}</p>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeDetail()" aria-label="${t('close')}"><i class="ti ti-x"></i></button>
+    </div>
+    <p class="detail-desc">${tt(m.desc)}</p>
+    <div class="detail-section"><p class="detail-section-title">${t('label_compatible_with')} (${usedIn.length})</p><div class="compat-list">`;
+    for (const sw of usedIn) {
+      const col = SW_COLORS[sw] || { bg: '#F1EFE8', color: '#2C2C2A' };
+      html += `<button type="button" class="compat-pill nav-software" data-sw-name="${sw}" style="background:${col.bg};color:${col.color}">${sw}</button>`;
+    }
+    html += '</div></div>';
+  }
+
+  panel.innerHTML = html;
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').style.display = 'none';
+}
+
+function navigateToSoftware(swName) {
+  const ref = softwareKeyByName(swName);
+  if (ref) {
+    switchTab('software');
+    showDetail(ref.type, ref.key);
+  }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
+}
+
+// ============== STATIC TRANSLATIONS ==============
+function applyStaticTranslations() {
+  document.documentElement.lang = currentLang;
+  document.title = 'Lotus Pecas — Software & ' + (currentLang === 'de' ? 'Module' : 'Moduli');
+  if (currentLang === 'en') document.title = 'Lotus Pecas — Software & Modules';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[currentLang][key]) {
+      if (key === 'h1_html') el.innerHTML = I18N[currentLang][key];
+      else el.textContent = I18N[currentLang][key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (I18N[currentLang][key]) el.placeholder = I18N[currentLang][key];
+  });
+}
+
+function rerenderAll() {
+  const searchValue = document.getElementById('search').value;
+  applyStaticTranslations();
+  renderSoftwareView(searchValue);
+  renderOsView(searchValue);
+  renderFunctionsView(searchValue);
+  renderModulesView(searchValue);
+  closeDetail();
+}
+
+function setLang(lang) {
+  if (!supportedLangs.includes(lang)) return;
+  currentLang = lang;
+  localStorage.setItem('lp_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  rerenderAll();
+}
+
+function setTheme(theme) {
+  currentTheme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('lp_theme', theme);
+}
+
+// ============== EVENTS ==============
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+document.querySelectorAll('.tab-btn').forEach(b => {
+  b.addEventListener('click', () => { switchTab(b.dataset.tab); closeDetail(); });
+});
+
+const searchInput = document.getElementById('search');
+const searchClear = document.getElementById('search-clear');
+searchInput.addEventListener('input', (e) => {
+  const v = e.target.value;
+  searchClear.classList.toggle('visible', v.length > 0);
+  renderSoftwareView(v);
+  renderOsView(v);
+  renderFunctionsView(v);
+  renderModulesView(v);
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  searchInput.dispatchEvent(new Event('input'));
+  searchInput.focus();
+});
+
+document.addEventListener('click', (e) => {
+  // Navigazione su software (badge/pill colorato)
+  const navSw = e.target.closest('.nav-software');
+  if (navSw) {
+    e.stopPropagation();
+    navigateToSoftware(navSw.dataset.swName);
+    return;
+  }
+  // Click su qualsiasi elemento con data-key + data-type
+  const card = e.target.closest('[data-key]');
+  if (card && card.dataset.type) {
+    showDetail(card.dataset.type, card.dataset.key);
+  }
+});
+
+// ============== INIT ==============
+setTheme(currentTheme);
+document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+applyStaticTranslations();
+renderSoftwareView();
+renderOsView();
+renderFunctionsView();
+renderModulesView();
+</script>
+
+</body>
+</html>
